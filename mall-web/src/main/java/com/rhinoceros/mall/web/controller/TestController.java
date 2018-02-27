@@ -15,7 +15,7 @@ public class TestController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/test")
+    @RequestMapping("/test11")
     public ModelAndView test() {
 
         List<User> users = userService.findAll();
