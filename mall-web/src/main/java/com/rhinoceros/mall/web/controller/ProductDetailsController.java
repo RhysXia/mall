@@ -3,8 +3,10 @@ package com.rhinoceros.mall.web.controller;
 
 import com.rhinoceros.mall.core.vo.CommentVo;
 import com.rhinoceros.mall.core.vo.ProductVo;
+import com.rhinoceros.mall.service.service.CartProductService;
 import com.rhinoceros.mall.service.service.CommentService;
 import com.rhinoceros.mall.service.service.ProductService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,8 @@ public class ProductDetailsController {
     @Autowired
     private ProductService productService;
 
+
+
     @RequestMapping({"/product"})
     public String index(
             @RequestParam("pid") Long id,
@@ -44,6 +48,10 @@ public class ProductDetailsController {
         model.addAttribute("nowPage", page);
         return "product";
     }
+
+
+
+
 
 
 }

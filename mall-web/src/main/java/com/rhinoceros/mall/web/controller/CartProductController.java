@@ -68,4 +68,27 @@ public class CartProductController {
         return "success";
     }
 
+
+    /**
+     * 添加购物车商品
+     * @param pid
+     * @param num
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping({"/cart/add"})
+    public String addToCartProduct(
+            @RequestParam("pid") Long pid,
+            @RequestParam("num") Integer num,
+            HttpSession session
+    ){
+        User user = (User) session.getAttribute(LoginController.USERNAME);
+        if(user==null){
+            return "redirect:/login";
+        }
+        cartProductService.addProduct(pid,user.getId(),num);
+        return "success";
+    }
+
 }

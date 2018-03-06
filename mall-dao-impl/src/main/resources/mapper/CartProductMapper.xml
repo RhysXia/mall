@@ -30,4 +30,22 @@
         SET product_num = #{productNum}
         WHERE product_id = #{productId}
     </update>
+
+    <!-- 添加商品 -->
+    <insert id="add" parameterType="CartProduct">
+        INSERT INTO cart_product(product_id,user_id,product_num)
+        VALUE (
+        #{productId},
+        #{userId},
+        #{productNum}
+        )
+    </insert>
+
+    <!--查找购物车中商品-->
+    <select id="findByUserIdAndProductId" resultType="CartProduct">
+        SELECT *
+        FROM cart_product
+        WHERE user_id = #{userId} AND product_id = #{productId}
+    </select>
+
 </mapper>

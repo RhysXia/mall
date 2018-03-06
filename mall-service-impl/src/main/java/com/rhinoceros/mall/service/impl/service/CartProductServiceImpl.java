@@ -12,7 +12,7 @@ import java.util.List;
 public class CartProductServiceImpl implements CartProductService{
     @Autowired
     private CartProductDao cartProductDao;
-    private ProductDao productDao;
+
     /**
      * 获取用户的购物车中的商品信息
      * @param userId
@@ -22,7 +22,6 @@ public class CartProductServiceImpl implements CartProductService{
     public List<CartProduct> findByUserId(Long userId) {
         return cartProductDao.findByUserId(userId);
     }
-
 
     @Override
     public void deleteByCartProductId(Long cartProductId) {
@@ -35,9 +34,28 @@ public class CartProductServiceImpl implements CartProductService{
      */
     @Override
     public Integer updateByCartProductId(long cartProductId, Integer num) {
-        return cartProductDao.updateById(cartProductId,num);
+        CartProduct cartProduct = new CartProduct();
+        cartProduct.setId(cartProductId);
+        cartProduct.setProductNum(num);
+        return cartProductDao.updateById(cartProduct);
     }
 
+    @Override
+    public void addProduct(Long productId, Long userId, Integer productNum){
+        CartProduct cartProduct = new CartProduct();
+        cartProduct.setProductId(productId);
+        cartProduct.setUserId(userId);
+        cartProduct.setProductNum(productNum);
+        CartProduct cartProduct1 = cartProductDao.findByUserIdAndProductId(userId, productId);
+        if (cartProduct1!=null) {
+            cartProduct1.setProductNum(cartProduct1.getProductNum() + productNum);
+            cartProductDao.updateById(cartProduct1);
+        }
+        else{
+            cartProductDao.add(cartProduct);
+        }
+
+    }
 //    @Override
 //    public List<Product> findByProductId(Long productId) {
 //        return productDao.findByProductId(productId);

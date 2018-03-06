@@ -242,7 +242,7 @@ function syncPrice(pid,num,price){
 						</td>
 						<td>
 							<div class="cartProductLinkOutDiv">
-								<a href="foreproduct?pid=${p.product.id}" class="cartProductLink">${p.product.name}</a>
+								<a href="${pageContext.request.contextPath}/product?pid=${p.product.id}" class="cartProductLink">${p.product.name}</a>
 								<div class="cartProductLinkInnerDiv">
 									<img src="${pageContext.request.contextPath}/static/img/site/creditcard.png" title="支持信用卡支付">
 									<img src="${pageContext.request.contextPath}/static/img/site/7day.png" title="消费者保障服务,承诺7天退货">
