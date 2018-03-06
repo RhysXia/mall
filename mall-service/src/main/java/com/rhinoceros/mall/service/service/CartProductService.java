@@ -1,6 +1,7 @@
 package com.rhinoceros.mall.service.service;
 
 
+import com.rhinoceros.mall.core.dto.CartProductDto;
 import com.rhinoceros.mall.core.pojo.CartProduct;
 import com.rhinoceros.mall.core.pojo.Product;
 
@@ -28,5 +29,5 @@ public interface CartProductService {
      * @param cartProductId
      * @return
      */
-    int countByCartProductId(Long cartProductId);
+    Integer updateByCartProductId(long cartProductId,Integer num);
 }

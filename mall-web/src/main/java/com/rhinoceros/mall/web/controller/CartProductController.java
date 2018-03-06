@@ -47,7 +47,16 @@ public class CartProductController {
         model.addAttribute("cartProducts",cartProducts);
         return "cart";
     }
-
+    @RequestMapping("/cart/count")
+    @ResponseBody
+    public  Integer countByCartProductId(@RequestParam("number")Integer number,@RequestParam("pid") Long pid,HttpSession session){
+        User user = (User) session.getAttribute(LoginController.USERNAME);
+        if (user==null){
+            return -1;
+        }
+        Integer storNum = cartProductService.updateByCartProductId(pid,number);
+        return storNum;
+    }
     /**
      * 删除购物车商品信息
      * @param cid
