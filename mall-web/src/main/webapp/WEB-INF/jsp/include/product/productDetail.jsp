@@ -9,9 +9,13 @@
 		<a href="#nowhere" class="productDetailTopReviewLink">累计评价 <span class="productDetailTopReviewLinkNumber">${productVo.product.commentNum}</span> </a>
 	</div>
 	
-	
-	<div class="productParamterPart">
-		<div class="productParamter">产品参数：</div>
+	<div>
+        ${productVo.description}
+    </div>
+
+	<%--<div class="productParamterPart">
+
+				<div class="productParamter">产品参数：</div>
 		
 		<div class="productParamterList">
 			<c:forEach items="${productVo.params}" var="productItem">
@@ -26,6 +30,6 @@
 		<c:forEach items="${productVo.descriptionImagesUrls}" var="pi">
 			<img src="${pi}">
 		</c:forEach>
-	</div>
+	</div>--%>
 </div>
 

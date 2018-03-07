@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rhinoceros.mall.core.pojo.Product;
 import com.rhinoceros.mall.core.query.PageQuery;
 import com.rhinoceros.mall.core.vo.ProductVo;
+import com.rhinoceros.mall.dao.dao.DescriptionDao;
 import com.rhinoceros.mall.dao.dao.ProductDao;
 import com.rhinoceros.mall.service.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,8 @@ import java.util.Map;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDao productDao;
-
+    @Autowired
+    private DescriptionDao descriptionDao;
 
     /**
      * 根据商品id获取商品信息，并封装成商品展示信息对象
@@ -32,8 +34,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductVo findProductVoById(Long id) {
         Product product = productDao.findById(id);
-        String params = product.getParams();
         ProductVo productVo = new ProductVo();
+        /*String params = product.getParams();
         try {
             if (params != null) {
                 ObjectMapper mapper = new ObjectMapper();
@@ -43,12 +45,12 @@ public class ProductServiceImpl implements ProductService {
         } catch (IOException e) {
             log.error(e.getMessage());
             e.printStackTrace();
-        }
+        }*/
         //获取商品图片url数组
         productVo.setImagesUrls(product.getImageUrls().split(Product.IMAGE_SEPARATION));
         productVo.setFirstImageUrl(productVo.getImagesUrls()[0]);
-        //获取商品详情图片的url数组
-        productVo.setDescriptionImagesUrls(product.getDescriptionImageUrls().split(Product.IMAGE_SEPARATION));
+        //获取商品详情
+        productVo.setDescription(descriptionDao.findByProductId(product.getId()));
         productVo.setProduct(product);
         return productVo;
 

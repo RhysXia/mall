@@ -220,17 +220,17 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `address` (
 
-  id          INT(20)        NOT NULL AUTO_INCREMENT
+  id                  INT(20)        NOT NULL AUTO_INCREMENT
   COMMENT 'id',
-  postal_code CHAR(6)        NOT NULL
+  postal_code         CHAR(6)        NOT NULL
   COMMENT '邮政编码',
-  delivery_address     VARCHAR(128)   NULL
+  delivery_address    VARCHAR(128)   NULL
   COMMENT '收货地址',
-  delivery_name varchar(32)  NOT NULL
+  delivery_name       varchar(32)    NOT NULL
   COMMENT '收货人姓名',
-  phone char(20) NOT NULL
+  phone               char(20)       NOT NULL
   COMMENT '收货人电话',
-  user_id     INT(20)       NOT NULL
+  user_id             INT(20)        NOT NULL
   COMMENT '地址对应的用户id',
   PRIMARY KEY `id`(`id`),
   KEY `user_id`(`user_id`)
@@ -241,7 +241,7 @@ CREATE TABLE `address` (
 CREATE TABLE `product_description` (
   product_id            INT(20)       NOT NUll  AUTO_INCREMENT
   COMMENT '商品id',
-  description   TEXT                  DEFAULT NULL
+  description           TEXT          DEFAULT NULL
   COMMENT '商品详情',
-  PRIMARY KEY `prodcut_id`(`prodcut_id`)
+  PRIMARY KEY `product_id`(`product_id`)
 )

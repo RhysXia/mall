@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.rhinoceros.mall.dao.dao.DescriptionDao">
+
+    <!--查找商品详情-->
+    <select id="findByProductId" resultType="String" parameterType="Long" >
+        SELECT description
+        FROM product_description
+        WHERE product_id = #{productId}
+    </select>
+
+
+</mapper>

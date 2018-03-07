@@ -34,7 +34,7 @@ public class CategoryController {
      *
      * @param cid    商品id
      * @param page   第几页
-     * @param sortBy 以什么字段进行排序
+     * @param pageQuery 以什么字段进行排序
      *               field,DESC:按照field降序
      *               field,ASC:按照field升序排序
      * @param model
@@ -53,7 +53,7 @@ public class CategoryController {
         for (Product p : products) {
             ProductVo productVo = new ProductVo();
             productVo.setProduct(p);
-            productVo.setDescriptionImagesUrls(p.getDescriptionImageUrls().split(Product.IMAGE_SEPARATION));
+//            productVo.setDescriptionImagesUrls(p.getDescriptionImageUrls().split(Product.IMAGE_SEPARATION));
             productVo.setImagesUrls(p.getImageUrls().split(Product.IMAGE_SEPARATION));
             productVo.setFirstImageUrl(productVo.getImagesUrls()[0]);
             productVos.add(productVo);
