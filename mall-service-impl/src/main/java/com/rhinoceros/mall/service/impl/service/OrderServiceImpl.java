@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
                 ProductVo productVo = new ProductVo();
                 //获取商品图片url数组
                 productVo.setImagesUrls(product.getImageUrls().split(Product.IMAGE_SEPARATION));
-                productVo.setFirstImageUrls(productVo.getImagesUrls()[0]);
+                productVo.setFirstImageUrl(productVo.getImagesUrls()[0]);
                 productVo.setProduct(product);
                 //创建OrderProductVo对象以便填充
                 OrderProductVo orderProductVo = new OrderProductVo();

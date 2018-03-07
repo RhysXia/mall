@@ -65,13 +65,7 @@ public class Product {
     /**
      * 产品参数，json数据格式
      */
-    private String params;
-
-    /**
-     * 商品描述图片url，多个url则以{@link IMAGE_SEPARATION}隔开
-     */
-    private String descriptionImageUrls;
-
+    private Long descriptionId;
     /**
      * 商品总评论数
      */

@@ -117,7 +117,7 @@ $(function(){
 				</tr>
 				<c:forEach items="${o.orderProductVos}" var="oi" varStatus="st">
 					<tr class="orderItemProductInfoPartTR" >
-						<td class="orderItemProductInfoPartTD"><img width="80" height="80" src="${oi.productVo.firstImageUrls}"></td>
+						<td class="orderItemProductInfoPartTD"><img width="80" height="80" src="${oi.productVo.firstImageUrl}"></td>
 						<td class="orderItemProductInfoPartTD">
 							<div class="orderListItemProductLinkOutDiv">
 								<a href="${pageContext.request.contextPath}/product?pid=${oi.productVo.product.id}">${oi.productVo.product.name}</a>
