@@ -42,4 +42,9 @@ public class ProductVo {
     }
 
 
+    /**
+     * 分类名称
+     */
+    private String categoryName;
+
 }

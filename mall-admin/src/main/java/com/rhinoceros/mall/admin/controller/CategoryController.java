@@ -21,10 +21,25 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * 通过id查询商品分类
+     * @param id
+     * @return
+     */
+    @RequestMapping
+    @ResponseBody
+    public Category findById(@RequestParam(value = "id") Long id){
+        return categoryService.findById(id);
+    }
+    /**
+     * 获取所有商品分类列表的方法
+     * @param id
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/list")
     public List<Category> getList(@RequestParam(value = "id", required = false) Long id) {
-        List<Category> categories;
+        List<Category> categories=null;
         if (id == null) {
             categories = categoryService.findRootCategories();
         } else {
@@ -39,4 +54,11 @@ public class CategoryController {
     public Category add(Category category) {
         return categoryService.add(category);
     }
+
+//    @ResponseBody
+//    @RequestMapping("/delete")
+//    public Category delete(Category category){
+//        return categoryService.fcategory);
+//    }
+
 }

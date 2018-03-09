@@ -2,6 +2,7 @@ package com.rhinoceros.mall.dao.dao;
 /* created at 3:37 PM 2/28/2018  */
 
 import com.rhinoceros.mall.core.pojo.Product;
+import com.rhinoceros.mall.core.pojo.ProductDescription;
 import com.rhinoceros.mall.core.query.PageQuery;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,6 +27,7 @@ public interface ProductDao {
     List<Product> findAll(@Param("page") PageQuery pageQuery);
 
 
+
     /**
      * 查找指定分类列表下直接的产品
      *
@@ -34,4 +36,6 @@ public interface ProductDao {
      * @return
      */
     List<Product> findByCategoryIdIn(@Param("categoryIds") List<Long> categoryIds, @Param("page") PageQuery pageQuery);
+
+    ProductDescription findDescriptionById(@Param("id")Long id);
 }

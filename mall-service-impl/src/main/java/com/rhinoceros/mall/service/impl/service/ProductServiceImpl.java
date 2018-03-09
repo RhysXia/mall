@@ -2,6 +2,7 @@ package com.rhinoceros.mall.service.impl.service;
 
 
 import com.rhinoceros.mall.core.pojo.Product;
+import com.rhinoceros.mall.core.pojo.ProductDescription;
 import com.rhinoceros.mall.core.query.PageQuery;
 import com.rhinoceros.mall.dao.dao.ProductDescriptionDao;
 import com.rhinoceros.mall.dao.dao.ProductDao;
@@ -55,5 +56,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAll(PageQuery pageQuery) {
         return productDao.findAll(pageQuery);
+    }
+
+    @Override
+    public ProductDescription findDescriptionById(Long id) {
+        return productDao.findDescriptionById(id);
     }
 }

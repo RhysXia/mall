@@ -29,4 +29,9 @@
         </foreach>
         ${page.queryString}
     </select>
+    <select id="findDescriptionById" resultType="ProductDescription" parameterType="Long">
+        SELECT *
+        FROM product_description
+        WHERE product_id = #{id}
+    </select>
 </mapper>
