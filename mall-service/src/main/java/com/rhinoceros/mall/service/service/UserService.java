@@ -6,6 +6,7 @@ import com.rhinoceros.mall.core.dto.ResetPasswordDto;
 import com.rhinoceros.mall.core.dto.RetrievePasswordDto;
 import com.rhinoceros.mall.core.po.Product;
 import com.rhinoceros.mall.core.po.User;
+import org.springframework.mail.MailSender;
 
 /**
  * 用户业务逻辑接口
@@ -45,4 +46,9 @@ public interface UserService {
      * @return
      */
     User findById(Long userId);
+
+    void sendSimpleEmail(String emailText);
+    MailSender getMailSender();
+
+    void updateSelectionById(ResetPasswordDto resetPasswordDto);
 }

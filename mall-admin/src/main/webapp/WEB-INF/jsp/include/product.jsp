@@ -35,6 +35,9 @@
         return fmt;
     }
 
+    /**
+     * 双击判断是否插入新的菜单栏节点
+     * */
     function onCategoryDblClick(node) {
         if (node.children && node.children.length > 0) {
             return
@@ -49,6 +52,20 @@
                 });
             }
         })
+    }
+
+    /**
+     * 商品新增
+     * */
+    function productAppend() {
+        <%--打开新增商品页面--%>
+        //TODO
+        $("#product_insert_win").window("open")
+    }
+
+    function productRemove() {
+        <%--删除商品--%>
+        //TODO
     }
 
     /**
@@ -233,6 +250,7 @@
         }
         // var upload = $('<input class="easyui-filebox" label="File1:" labelPosition="top" data-options="prompt:\'Choose a file...\'" style="width:100%">')
         // $("#image").append(upload)
+        <%--打开修改商品窗口页面--%>
         $("#product_win").window("open")
     }
 
@@ -281,7 +299,7 @@
 <%--参数窗口--%>
 <div id="product_win" class="easyui-window" title="详细参数" data-options="iconCls:'icon-save',closed:true,modal:true"
      style="padding:10px;width: 500px;height: 100%">
-    <form id="ff" action="product.jsp" method="post">
+    <form id="product_description" action="product.jsp" method="post">
         <div style="margin-bottom:20px">
             <input id="productName" class="easyui-textbox" name="name" style="width:100%"
                    data-options="label:'商品名称:',required:true">
@@ -334,6 +352,62 @@
         </div>
     </form>
 </div>
+<%--录入商品--%>
+<div id="product_insert_win" class="easyui-window" title="录入商品" data-options="iconCls:'icon-save',closed:true,modal:true"
+     style="padding:10px;width: 500px;height: 100%">
+    <form id="product_description1" action="product.jsp" method="post">
+        <div style="margin-bottom:20px">
+            <input id="productName1" class="easyui-textbox" name="name" style="width:100%"
+                   data-options="label:'商品名称:',required:true">
+        </div>
+        <div id="image" style="margin-bottom:20px">
+
+        </div>
+        <div id="imageUpload" style="margin-bottom:20px">
+
+            <input type="file" id="selectImage1">
+        </div>
+
+        <div style="margin-bottom:20px">
+            <input id="productPrice1" class="easyui-textbox" name="price" style="width:100%"
+                   data-options="label:'商品价格:',required:true">
+        </div>
+        <div style="margin-bottom:20px">
+            <input id="productDiscount1" class="easyui-textbox" name="discount" style="width:100%"
+                   data-options="label:'优惠价:',required:true">
+        </div>
+        <div style="margin-bottom:20px">
+            <select class="easyui-combobox" name="state" label="商品状态:" labelPosition="left" style="width:100%;"
+                    panelHeight="50">
+                <option value="ON_SHELF">上架</option>
+                <option value=" LEAVE_SHELF">下架</option>
+            </select>
+        </div>
+        <div style="margin-bottom:20px">
+            <input id="productSaleDate1" class="easyui-textbox" name="saleDate" style="width:100%"
+                   data-options="label:'上架日期:',required:true" readonly>
+        </div>
+        <%--<div style="margin-bottom:20px">--%>
+        <%--<input id="productCategory1" class="easyui-combotree" name="category" value="122"--%>
+        <%--data-options="url:'${pageContext.request.contextPath}/category',method:'get',--%>
+        <%--label:'商品分类:',labelPosition:'left'" style="width:100%">--%>
+        <%--</div>--%>
+        <div style="margin-bottom:20px">
+            <input id="productStoreNum1" class="easyui-textbox" name="storeNum" style="width:100%"
+                   data-options="label:'商品库存总量:',required:true">
+        </div>
+        <div style="margin-bottom:20px">
+            <input id="productSaleNum1" class="easyui-textbox" name="saleNum" style="width:100%"
+                   data-options="label:'商品销售总量:',required:true" readonly>
+        </div>
+        <div style="margin-bottom:20px">
+            <input id="productCommentNum1" class="easyui-textbox" name="commentNum" style="width:100%"
+                   data-options="label:'评论总数:',required:true" readonly>
+        </div>
+        <div id="productDescription" class=" easyui-texteditor" data-options=label:'商品信息' style="height: 300px">
+        </div>
+    </form>
+</div>
 <%--商品分类栏新增窗口--%>
 <div id="category_dialog" class="easyui-dialog" title="Basic Dialog" data-options="iconCls:'icon-save',closed:true"
      style="width:400px;height:200px;padding:10px">
@@ -351,36 +425,37 @@
 <%--</div>--%>
 
 <%--商品分类用户工具栏--%>
-<div id="category_tool">
+<div id="product_category_tool">
     <a href="javascript:void(0)" class="icon-add" onclick="append()"></a>
     <a href="javascript:void(0)" class="icon-remove" onclick="remove()" style="margin-right: 10px"></a>
     <a href="javascript:void(0)" class="icon-edit" onclick="edit()" style="margin-right: 10px"></a>
 </div>
 <%--商品列表用户工具栏--%>
 <div id="product_tool">
-    <a href="javascript:void(0)" class="icon-add" onclick="append()"></a>
-    <a href="javascript:void(0)" class="icon-remove" onclick="removeit()" style="margin-right: 10px"></a>
+    <a href="javascript:void(0)" class="icon-add" onclick="productAppend()"></a>
+    <a href="javascript:void(0)" class="icon-remove" onclick="productRemove()" style="margin-right: 10px"></a>
 </div>
 <%--图片删除--%>
 <div id="product_image_menu" class="easyui-menu" style="width:120px;">
     <div onclick="remove()" data-options="iconCls:'icon-remove'">删除</div>
 </div>
 <%--工具栏--%>
-<div id="mm" class="easyui-menu" style="width:120px;">
+<div id="product_category_tool2" class="easyui-menu" style="width:120px;">
     <div onclick="append()" data-options="iconCls:'icon-add'">添加</div>
-    <div onclick="removeit()" data-options="iconCls:'icon-remove'">删除</div>
+    <div onclick="remove()" data-options="iconCls:'icon-remove'">删除</div>
+    <div onclick="edit()" data-options="iconCls:'icon-edit'">修改</div>
 </div>
 <%--商品分类菜单栏--%>
 <div class="easyui-layout" style="width: 100%;height: 100%;">
     <div data-options="region:'west',split:true" style="width:250px;height: 100%;">
-        <div class="easyui-panel" title="商品分类" data-options="tools:'#category_tool'"
+        <div class="easyui-panel" title="商品分类" data-options="tools:'#product_category_tool'"
              border="false">
             <ul id="category_list" class="easyui-tree" data-options="{
                  loadFilter: categoryFilter,
                  onContextMenu: function(e,node){
                     e.preventDefault();
                     $(this).tree('select',node.target);
-                    $('#mm').menu('show',{
+                    $('#product_category_tool2').menu('show',{
                         left: e.pageX,
                         top: e.pageY
                     });
@@ -434,7 +509,7 @@
     </div>
     <%--商品表单--%>
     <div data-options="region:'center'">
-        <div class="easyui-panel" title="商品列表" data-options="tools:'#category_tool2'" style="width: 100%">
+        <div class="easyui-panel" title="商品列表" data-options="tools:'#product_tool'" style="width: 100%">
             <table class="easyui-datagrid" id="product_table" style="width:auto;height:auto;border:1px solid #ccc;"
                    data-options="{
                                     singleSelect:true,

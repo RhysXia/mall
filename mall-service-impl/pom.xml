@@ -25,6 +25,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.rhinoceros</groupId>
             <artifactId>mall-service</artifactId>
         </dependency>

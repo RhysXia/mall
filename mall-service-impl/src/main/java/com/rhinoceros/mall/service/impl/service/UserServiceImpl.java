@@ -14,6 +14,9 @@ import com.rhinoceros.mall.service.impl.exception.user.*;
 import com.rhinoceros.mall.service.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -156,4 +159,47 @@ public class UserServiceImpl implements UserService {
     public User findById(Long userId) {
         return userDao.findById(userId);
     }
+
+    private JavaMailSenderImpl mailSender = null;
+    public MailSender getMailSender() {
+        if(mailSender == null){
+            mailSender = new JavaMailSenderImpl();
+            mailSender.setHost("smtp.163.com");//指定用来发送Email的邮件服务器主机名
+            mailSender.setPort(25);//默认端口，标准的SMTP端口
+            mailSender.setUsername("mytestlong@163.com");//用户名
+            mailSender.setPassword("feilong770");//密码
+        }
+        return mailSender;
+    }
+
+    /**
+     * 根据用户名查找用户
+     * @param resetPasswordDto
+     */
+    @Transactional
+    @Override
+    public void updateSelectionById(ResetPasswordDto resetPasswordDto) {
+        String email = SecurityUtils.encode(resetPasswordDto.getSecret());
+        User user = userDao.findByEmail(email);
+        if(user == null){
+            log.info("用户名不存在");
+            throw new UserNotFoundException("用户名不存在");
+        }
+        String password = resetPasswordDto.getPassword();
+        user.setPassword(SecurityUtils.encrypt(password));
+        userDao.updateSelectionById(user);
+    }
+
+    public void sendSimpleEmail(String text){
+        System.out.println("邮件发送开始");
+        SimpleMailMessage message = new SimpleMailMessage();//消息构造器
+        message.setFrom("mytestlong@163.com");//发件人
+        message.setTo("969564376@qq.com");//收件人
+        message.setSubject("MySendMail");//主题
+        message.setText(text);//正文
+        MailSender sender = getMailSender();
+        getMailSender().send(message);
+        System.out.println("邮件发送完毕");
+    }
+
 }

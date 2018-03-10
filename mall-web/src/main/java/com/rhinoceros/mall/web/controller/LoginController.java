@@ -12,6 +12,11 @@ import com.rhinoceros.mall.service.impl.exception.user.UserHasFoundException;
 import com.rhinoceros.mall.service.service.UserService;
 import com.rhinoceros.mall.web.support.web.annotation.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -180,8 +185,9 @@ public class LoginController {
             userService.retrievePassword(retrievePasswordDto);
             String encodeStr = SecurityUtils.encode(retrievePasswordDto.getEmail());
             String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-            //TODO 发送邮件
-            System.out.println(basePath + "/resetPassword?" + SECRET + "=" + encodeStr);
+            //发送邮件
+            String emailText = basePath + "/resetPassword?" + SECRET + "=" + encodeStr ;
+            userService.sendSimpleEmail(emailText);
             return "sendEmailSuccess";
         } catch (UserHasFoundException | EmailHasFoundException e) {
             model.addAttribute("msg", e.getMessage());
@@ -219,20 +225,25 @@ public class LoginController {
     @RequestMapping("/resetPasswordSubmit")
     public String resetPasswordSubmit(@Validated @ModelAttribute("resetPassword") ResetPasswordDto resetPasswordDto, BindingResult br, HttpSession session, Model model) {
         String email = SecurityUtils.decode(resetPasswordDto.getSecret());
-
+        String validateCode = (String) session.getAttribute("validateCode");
         if (br.hasErrors()) {
             model.addAttribute("msg", br.getFieldError().getDefaultMessage());
             return "resetPassword";
         }
-        String validateCode = (String) session.getAttribute("validateCode");
-        if (!(resetPasswordDto.getPassword().equals(resetPasswordDto.getRePassword()))) {
+        else if (!(resetPasswordDto.getPassword().equals(resetPasswordDto.getRePassword()))) {
             model.addAttribute("msg", "两次密码不一致");
             return "resetPassword";
         }
-        if (validateCode != null && !(validateCode.equals((resetPasswordDto.getCode())))) {
+        else if (validateCode != null && !(validateCode.equals((resetPasswordDto.getCode())))) {
             model.addAttribute("msg", "验证码错误");
             return "resetPassword";
         }
-        return "resetPasswordSuccess";
+        else {
+            userService.updateSelectionById(resetPasswordDto);
+            return "resetPasswordSuccess";
+        }
+
     }
+
+
 }
